@@ -1,16 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import PcHome from '../page_pc/Home'
-import WapHome from '../page_m/Home'
+import PcHome from '../pages/pc/Home'
+import WapHome from '../pages/wap/Home'
 
 Vue.use(VueRouter)
 
 const routes = [
-    {
-        path: '',
-        redirect: ''
-    },
     {
         path: '/index',
         name: 'pchome',
