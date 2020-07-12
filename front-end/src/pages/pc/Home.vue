@@ -18,6 +18,5 @@ export default {
 <style>
 .container {
   min-width: 1000px;
-  background-color: #202329;
 }
 </style>

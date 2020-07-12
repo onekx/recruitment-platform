@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style>
-html, body, ul, li {
+html, body, ul, li, i {
   margin: 0;
   padding: 0;
 }
