@@ -21,8 +21,16 @@ export default {
 </script>
 
 <style>
-html, body, ul, li, i {
+* {
   margin: 0;
   padding: 0;
+}
+
+body {
+  background-color: #f6f6f8;
+}
+
+.main {
+  min-width: 1000px;
 }
 </style>

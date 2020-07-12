@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import PcHome from '../pages/pc/Home'
-import WapHome from '../pages/wap/Home'
+import PcHome from '../pages/Home'
+import WapHome from '../pages/Home'
 
 Vue.use(VueRouter)
 

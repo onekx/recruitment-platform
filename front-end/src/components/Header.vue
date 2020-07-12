@@ -26,17 +26,7 @@
             <a href="/index" title="简历">简历</a>
           </li>
           <li>
-            <el-dropdown>
-              <span class="el-dropdown-link">
-                孔鑫
-                <i class="el-icon-arrow-down"></i>
-              </span>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>个人中心</el-dropdown-item>
-                <el-dropdown-item>账号设置</el-dropdown-item>
-                <el-dropdown-item>退出登录</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
+            <a href="/index" title="个人中心">孔鑫</a>
           </li>
         </ul>
       </div>

@@ -1,16 +1,19 @@
 <template>
   <div class="container">
-    <PcHeader />
+    <Header />
+    <JobList />
   </div>
 </template>
 
 <script>
-import PcHeader from '@/components/pc/Header'
+import Header from '../components/Header'
+import JobList from '../components/JobList'
 
 export default {
   name: 'PcHome',
   components: {
-    PcHeader
+    Header,
+    JobList
   }
 }
 </script>
