@@ -1,16 +1,16 @@
 <template>
-  <div class="container">
+  <div class="home">
     <Header />
     <JobList />
   </div>
 </template>
 
 <script>
-import Header from '../components/Header'
-import JobList from '../components/JobList'
+import Header from '../components/common/Header'
+import JobList from '../components/home/JobList'
 
 export default {
-  name: 'PcHome',
+  name: 'Home',
   components: {
     Header,
     JobList
@@ -19,7 +19,7 @@ export default {
 </script>
 
 <style>
-.container {
+.home {
   min-width: 1000px;
 }
 </style>

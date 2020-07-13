@@ -6,17 +6,7 @@
 
 <script>
 export default {
-  name: 'App',
-  methods: {
-    isMobile() {
-      const flag = navigator.userAgent.match(/(phone|pad|iPhone|ios|iPad|Android|Mobile|IEMobile|MQQBrowser)/i)
-      return flag
-    }
-  },
-  created() {
-    if (this.isMobile()) this.$router.replace('/index_m')
-    else this.$router.replace('/index')
-  }
+  name: 'App'
 }
 </script>
 
@@ -28,9 +18,5 @@ export default {
 
 body {
   background-color: #f6f6f8;
-}
-
-.main {
-  min-width: 1000px;
 }
 </style>
