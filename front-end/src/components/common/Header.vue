@@ -158,6 +158,8 @@ ul {
   background-color: #32373e;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  position: relative;
+  z-index: 100;
 }
 
 .dropdown ul li {

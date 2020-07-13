@@ -1,19 +1,19 @@
 <template>
   <div class="home">
     <Header />
-    <JobList />
+    <SearchJob />
   </div>
 </template>
 
 <script>
 import Header from '../components/common/Header'
-import JobList from '../components/home/JobList'
+import SearchJob from '../components/home/SearchJob'
 
 export default {
   name: 'Home',
   components: {
     Header,
-    JobList
+    SearchJob
   }
 }
 </script>
