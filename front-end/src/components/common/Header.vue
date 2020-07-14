@@ -10,27 +10,27 @@
         <span v-text="city" class="city-text"></span>
         <span @click="dialogVisible = true" class="switch-city">[切换城市]</span>
       </div>
-      <a href="/" class="home-btn">职位</a>
+      <router-link to="/" class="home-btn">职位</router-link>
       <div class="user-nav">
         <ul>
           <li>
-            <a href="/">消息</a>
+            <router-link to="/message">消息</router-link>
           </li>
           <li>
-            <a href="/">简历</a>
+            <router-link to="/resume">简历</router-link>
           </li>
           <li>
             <span @click="dropdown = !dropdown" class="name" v-text="username"></span>
             <div class="dropdown" v-show="dropdown">
               <ul>
                 <li>
-                  <a href="/">个人中心</a>
+                  <router-link to="/user">个人中心</router-link>
                 </li>
                 <li>
-                  <a href="/">账号设置</a>
+                  <router-link to="/setting">账号设置</router-link>
                 </li>
                 <li>
-                  <a href="/">退出登录</a>
+                  <router-link to="/">退出登录</router-link>
                 </li>
               </ul>
             </div>
