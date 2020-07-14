@@ -1,6 +1,31 @@
 <template>
   <div class="job-card">
-    
+    <div class="job-inner">
+      <div class="job-info">
+        <div class="job-title">
+          <span class="name">前端工程师</span>
+          <span class="job-city">成都</span>
+          <span class="job-post-time">发布于07月14号</span>
+        </div>
+        <div class="job-limit">
+          <span class="pay">7-8K</span>
+          <span>1-3年</span>
+          <em class="divide"></em>
+          <span>本科</span>
+        </div>
+      </div>
+      <div class="company-info">
+        <div class="company-text">
+          <span class="name">成都东软学院</span>
+          <div class="company-intro">
+            <span>互联网企业</span>
+            <em class="divide"></em>
+            <span>20-99人</span>
+          </div>
+        </div>
+        <img src="https://cn.vuejs.org/images/logo.png" alt="logo" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -12,11 +37,92 @@ export default {
 
 <style scoped>
 .job-card {
-  height: 130px;
-  width: 960px;
+  height: 100px;
+  width: 900px;
   background-color: #fff;
   padding: 0 30px;
   margin: 0 auto;
   box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.job-inner {
+  width: auto;
+  height: 70px;
+  padding-top: 20px;
+}
+
+.job-info {
+  float: left;
+}
+
+.company-info {
+  float: right;
+  width: 300px;
+}
+
+.job-city {
+  color: #00c2b3;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.job-city::before {
+  content: "[";
+}
+
+.job-city::after {
+  content: "]";
+}
+
+.job-post-time {
+  font-size: 13px;
+  color: #8d92a1;
+  margin-left: 10px;
+}
+
+.job-limit {
+  height: 26px;
+  color: #61687c;
+  margin-top: 10px;
+}
+
+.pay {
+  color: #fc703e;
+  margin-right: 10px;
+}
+
+.divide {
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  vertical-align: middle;
+  background: #e0e0e0;
+  margin: 0 10px;
+}
+
+.company-text {
+  width: auto;
+  float: left;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 3px;
+  color: #00c2b3;
+}
+
+img {
+  width: 50px;
+  height: 50px;
+  float: right;
+}
+
+.company-intro {
+  color: #61687c;
+  margin-top: 10px;
 }
 </style>

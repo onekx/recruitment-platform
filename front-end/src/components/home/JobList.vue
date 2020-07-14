@@ -1,6 +1,9 @@
 <template>
   <div class="main">
     <JobListItem />
+    <JobListItem />
+    <JobListItem />
+    <JobListItem />
   </div>
 </template>
 
@@ -15,3 +18,8 @@ export default {
 }
 </script>
 
+<style scoped>
+.main {
+  margin: 30px 0;
+}
+</style>
