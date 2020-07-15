@@ -43,12 +43,18 @@
       <el-divider></el-divider>
       <el-button v-for="city in cities" :key="city" v-text="city"></el-button>
     </el-dialog>
+    <Login />
   </header>
 </template>
 
 <script>
+import Login from '../Login'
+
 export default {
   name: 'Header',
+  components: {
+    Login
+  },
   data() {
     return {
       username: '孔鑫',
