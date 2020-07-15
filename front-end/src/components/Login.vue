@@ -52,8 +52,9 @@ export default {
 <style scoped>
 .title {
   color: #00b38a;
-  font-size: 20px;
+  font-size: 25px;
   letter-spacing: 1px;
+  font-weight: 600;
 }
 
 .login-btn {
