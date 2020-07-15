@@ -1,5 +1,13 @@
 <template>
   <el-dialog :visible.sync="dialogVisible" width="400px" center>
+    <el-alert
+      :title="errorText"
+      type="error"
+      center
+      show-icon
+      v-if="showAlert"
+      @close="showAlert = false"
+    ></el-alert>
     <div slot="title">
       <span class="title">招聘网</span>
     </div>
@@ -8,7 +16,7 @@
         <el-input placeholder="请输入邮箱" v-model="email" clearable></el-input>
       </el-form-item>
       <el-form-item>
-        <el-input placeholder="请输入密码" v-model="pwd" show-password clearable></el-input>
+        <el-input placeholder="请输入密码" v-model="password" show-password clearable></el-input>
       </el-form-item>
     </el-form>
     <div v-if="loginForm">
@@ -23,23 +31,51 @@
 </template>
 
 <script>
+import request from '../api'
+
 export default {
   name: 'Login',
   data() {
     return {
       dialogVisible: true,
       email: '',
-      pwd: '',
+      password: '',
       loginForm: true,
-      registerForm: false
+      registerForm: false,
+      showAlert: false,
+      errorText: ''
     }
   },
   methods: {
-    login() {
-      alert('login')
+    async login() {
+      try {
+        const result = await request.post('/login', {
+          email: this.email,
+          password: this.password
+        })
+        if (result.data.ok) this.dialogVisible = false
+        else {
+          this.errorText = result.data.message
+          this.showAlert = true
+        }
+      } catch (err) {
+        console.log(err)
+      }
     },
-    register() {
-      alert('register')
+    async register() {
+      try {
+        const result = await request.post('/register', {
+          email: this.email,
+          password: this.password
+        })
+        if (result.data.ok) this.login()
+        else {
+          this.errorText = '注册失败'
+          this.showAlert = true
+        }
+      } catch (err) {
+        console.log(err)
+      }
     },
     changeBtn() {
       this.loginForm = !this.loginForm
