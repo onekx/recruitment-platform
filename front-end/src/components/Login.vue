@@ -53,7 +53,11 @@ export default {
           email: this.email,
           password: this.password
         })
-        if (result.data.ok) this.dialogVisible = false
+        if (result.data.ok) {
+          window.localStorage.setItem('token', result.data.token)
+          this.dialogVisible = false
+          this.$emit('login-click', true)
+        }
         else {
           this.errorText = result.data.message
           this.showAlert = true

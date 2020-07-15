@@ -20,7 +20,8 @@
             <router-link to="/resume">简历</router-link>
           </li>
           <li>
-            <span @click="dropdown = !dropdown" class="name" v-text="username"></span>
+            <span class="name" v-if="!login" @click="showLoginDialog">登录</span>
+            <span @click="dropdown = !dropdown" class="name" v-text="username" v-if="login"></span>
             <div class="dropdown" v-show="dropdown">
               <ul>
                 <li>
@@ -30,7 +31,7 @@
                   <router-link to="/setting">账号设置</router-link>
                 </li>
                 <li>
-                  <router-link to="/">退出登录</router-link>
+                  <span class="logout-btn" @click="logout">退出登录</span>
                 </li>
               </ul>
             </div>
@@ -43,7 +44,7 @@
       <el-divider></el-divider>
       <el-button v-for="city in cities" :key="city" v-text="city"></el-button>
     </el-dialog>
-    <Login />
+    <Login v-if="loginDialog" @login-click="changeStatus" />
   </header>
 </template>
 
@@ -61,8 +62,28 @@ export default {
       city: '全国',
       dropdown: false,
       dialogVisible: false,
-      cities: ["全国站", "北京站", "上海站", "广州站", "深圳站", "成都站", "杭州站", "武汉站", "苏州站", "重庆站", "天津站", "长沙站"]
+      cities: ["全国站", "北京站", "上海站", "广州站", "深圳站", "成都站", "杭州站", "武汉站", "苏州站", "重庆站", "天津站", "长沙站"],
+      login: false,
+      loginDialog: false
     }
+  },
+  methods: {
+    logout() {
+      window.localStorage.removeItem('token')
+      this.dropdown = false
+      this.login = false
+    },
+    showLoginDialog() {
+      this.loginDialog = true
+    },
+    changeStatus(status) {
+      this.login = status
+    }
+  },
+  created() {
+    const token = window.localStorage.getItem('token')
+    if (token) this.login = true
+    else this.login = false
   }
 }
 </script>
@@ -170,6 +191,14 @@ ul {
 
 .dropdown ul li {
   display: block;
+}
+
+.logout-btn {
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  color: #00b38a;
 }
 
 .name {
