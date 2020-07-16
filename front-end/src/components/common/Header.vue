@@ -37,6 +37,7 @@
 
 <script>
 import Login from '../Login'
+import request from '../../api'
 
 export default {
   name: 'Header',
@@ -45,11 +46,9 @@ export default {
   },
   data() {
     return {
-      username: '用户',
       city: '全国',
-      dropdown: false,
       dialogVisible: false,
-      cities: ["全国站", "北京站", "上海站", "广州站", "深圳站", "成都站", "杭州站", "武汉站", "苏州站", "重庆站", "天津站", "长沙站"],
+      cities: [],
       login: false,
       loginDialog: false
     }
@@ -67,10 +66,16 @@ export default {
       this.login = status
     }
   },
-  created() {
+  async created() {
     const token = window.localStorage.getItem('token')
     if (token) this.login = true
     else this.login = false
+    try {
+      const { data } = await request.get('/city')
+      this.cities = data.cities
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 </script>

@@ -11,7 +11,9 @@ app.use(bodyParser.json())
 
 // 引入路由
 const user = require('./route/user')
+const city = require('./route/city')
 app.use(user)
+app.use(city)
 
 const port = 5959
 
