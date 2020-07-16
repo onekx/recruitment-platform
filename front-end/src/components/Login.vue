@@ -68,16 +68,14 @@ export default {
     },
     async register() {
       try {
-        const result = await request.post('/register', {
+        await request.post('/register', {
           email: this.email,
           password: this.password
         })
-        if (result.data.ok) this.login()
-        else {
-          this.errorText = '注册失败'
-          this.showAlert = true
-        }
+        this.login()
       } catch (err) {
+        this.errorText = '注册失败'
+        this.showAlert = true
         console.log(err)
       }
     },

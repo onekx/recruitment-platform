@@ -17,7 +17,8 @@ const port = 5959
 
 mongoose.connect('mongodb://localhost:27017/recruitment', {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex: true
 }, (err) => {
     if (err) console.log('数据库连接失败', err)
     else {

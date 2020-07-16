@@ -22,16 +22,6 @@
           <li>
             <span class="name" v-if="!login" @click="showLoginDialog">登录</span>
             <router-link to="/user" v-if="login">个人中心</router-link>
-            <!-- <div class="dropdown" v-show="dropdown">
-              <ul>
-                <li>
-                  <router-link to="/user">个人中心</router-link>
-                </li>
-                <li>
-                  <span class="logout-btn" @click="logout">退出登录</span>
-                </li>
-              </ul>
-            </div> -->
           </li>
         </ul>
       </div>
