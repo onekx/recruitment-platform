@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="main">
     <Header />
     <SearchJob />
     <JobList />
@@ -20,9 +20,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.home {
-  min-width: 1000px;
-}
-</style>

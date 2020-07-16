@@ -19,4 +19,8 @@ export default {
 body {
   background-color: #f6f6f8;
 }
+
+.main {
+  min-width: 1000px;
+}
 </style>

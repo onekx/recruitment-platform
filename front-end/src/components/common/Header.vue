@@ -21,20 +21,17 @@
           </li>
           <li>
             <span class="name" v-if="!login" @click="showLoginDialog">登录</span>
-            <span @click="dropdown = !dropdown" class="name" v-text="username" v-if="login"></span>
-            <div class="dropdown" v-show="dropdown">
+            <router-link to="/user" v-if="login">个人中心</router-link>
+            <!-- <div class="dropdown" v-show="dropdown">
               <ul>
                 <li>
                   <router-link to="/user">个人中心</router-link>
                 </li>
                 <li>
-                  <router-link to="/setting">账号设置</router-link>
-                </li>
-                <li>
                   <span class="logout-btn" @click="logout">退出登录</span>
                 </li>
               </ul>
-            </div>
+            </div> -->
           </li>
         </ul>
       </div>
@@ -58,7 +55,7 @@ export default {
   },
   data() {
     return {
-      username: '孔鑫',
+      username: '用户',
       city: '全国',
       dropdown: false,
       dialogVisible: false,
@@ -203,6 +200,8 @@ ul {
 
 .name {
   cursor: pointer;
+  width: 60px;
+  overflow: hidden;
 }
 
 .name:hover {
