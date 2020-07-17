@@ -92,7 +92,8 @@ export default {
   },
   async created() {
     try {
-      const { data } = await request.get('/user/5f0ea7f95317cc126023a819')
+      const { userId } = this.$store.state
+      const { data } = await request.get(`/user/${userId}`)
       this.name = data.user.name
       this.age = data.user.age
       this.gender = data.user.gender

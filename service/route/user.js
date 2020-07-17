@@ -7,6 +7,7 @@ const User = require('../model/User')
 // 注册
 app.post('/api/register', (req, res) => {
     const user = new User()
+    user.role = req.body.role
     user.email = req.body.email
     user.password = req.body.password
     user.save((err) => {

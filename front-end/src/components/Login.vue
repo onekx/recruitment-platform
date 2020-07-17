@@ -11,6 +11,12 @@
     <div slot="title">
       <span class="title">招聘网</span>
     </div>
+    <div v-if="registerForm">
+      <el-tabs v-model="role">
+        <el-tab-pane label="我要求职" name="employee"></el-tab-pane>
+        <el-tab-pane label="我要招人" name="employer"></el-tab-pane>
+      </el-tabs>
+    </div>
     <el-form>
       <el-form-item>
         <el-input placeholder="请输入邮箱" v-model="email" clearable></el-input>
@@ -43,7 +49,8 @@ export default {
       loginForm: true,
       registerForm: false,
       showAlert: false,
-      errorText: ''
+      errorText: '',
+      role: 'employee'
     }
   },
   methods: {
@@ -61,7 +68,6 @@ export default {
             type: 'setUserId',
             id: data.user._id
           })
-          console.log(this.$store.state.userId)
         }
         else {
           this.errorText = data.message
@@ -74,6 +80,7 @@ export default {
     async register() {
       try {
         await request.post('/register', {
+          role: this.role,
           email: this.email,
           password: this.password
         })
