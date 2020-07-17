@@ -16,12 +16,15 @@
           <li>
             <router-link to="/message">消息</router-link>
           </li>
-          <li>
-            <router-link to="/resume">简历</router-link>
+          <li v-if="role == 'employee'">
+            <router-link to="/resume">上传简历</router-link>
+          </li>
+          <li v-if="role == 'employer'">
+            <router-link to="/recruitment">发布职位</router-link>
           </li>
           <li>
-            <span class="name" v-if="!login" @click="showLoginDialog">登录</span>
             <router-link to="/user" v-if="login">个人中心</router-link>
+            <span class="name" v-else @click="showLoginDialog">登录</span>
           </li>
         </ul>
       </div>
@@ -31,13 +34,13 @@
       <el-divider></el-divider>
       <el-button v-for="city in cities" :key="city" v-text="city"></el-button>
     </el-dialog>
-    <Login v-if="loginDialog" @login-click="changeStatus" />
+    <Login v-if="loginDialog" @login-click="setData" />
   </header>
 </template>
 
 <script>
 import Login from '../Login'
-import request from '../../api'
+import request from '@/api'
 
 export default {
   name: 'Header',
@@ -50,23 +53,21 @@ export default {
       dialogVisible: false,
       cities: [],
       login: false,
-      loginDialog: false
+      loginDialog: false,
+      role: ''
     }
   },
   methods: {
-    logout() {
-      window.localStorage.removeItem('token')
-      this.dropdown = false
-      this.login = false
-    },
     showLoginDialog() {
       this.loginDialog = true
     },
-    changeStatus(status) {
-      this.login = status
+    setData(value) {
+      this.login = value.login
+      this.role = value.role
     }
   },
   async created() {
+    this.role = this.$store.state.role
     const token = window.localStorage.getItem('token')
     if (token) this.login = true
     else this.login = false

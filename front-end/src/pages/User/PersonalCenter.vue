@@ -87,6 +87,11 @@ export default {
     },
     logout() {
       window.localStorage.removeItem('token')
+      this.$store.commit({
+        type: 'initialState',
+        id: '',
+        role: ''
+      })
       this.$router.push('/')
     }
   },

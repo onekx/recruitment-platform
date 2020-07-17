@@ -5,11 +5,13 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        userId: ''
+        userId: '',
+        role: ''
     },
     mutations: {
-        setUserId(state, payload) {
+        initialState(state, payload) {
             state.userId = payload.id
+            state.role = payload.role
         }
     }
 })

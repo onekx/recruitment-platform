@@ -63,10 +63,14 @@ export default {
         if (data.ok) {
           window.localStorage.setItem('token', data.token)
           this.dialogVisible = false
-          this.$emit('login-click', true)
+          this.$emit('login-click', {
+            login: true,
+            role: data.user.role
+          })
           this.$store.commit({
-            type: 'setUserId',
-            id: data.user._id
+            type: 'initialState',
+            id: data.user._id,
+            role: data.user.role
           })
         }
         else {
