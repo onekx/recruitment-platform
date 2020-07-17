@@ -49,17 +49,22 @@ export default {
   methods: {
     async login() {
       try {
-        const result = await request.post('/login', {
+        const { data } = await request.post('/login', {
           email: this.email,
           password: this.password
         })
-        if (result.data.ok) {
-          window.localStorage.setItem('token', result.data.token)
+        if (data.ok) {
+          window.localStorage.setItem('token', data.token)
           this.dialogVisible = false
           this.$emit('login-click', true)
+          this.$store.commit({
+            type: 'setUserId',
+            id: data.user._id
+          })
+          console.log(this.$store.state.userId)
         }
         else {
-          this.errorText = result.data.message
+          this.errorText = data.message
           this.showAlert = true
         }
       } catch (err) {
