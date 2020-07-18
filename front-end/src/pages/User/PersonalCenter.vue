@@ -40,7 +40,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">确认修改</el-button>
-          <el-button>取消</el-button>
+          <el-button @click="onCancel">取消</el-button>
           <el-button type="danger" class="logout-btn" @click="logout">退出登录</el-button>
         </el-form-item>
       </el-form>
@@ -80,6 +80,7 @@ export default {
           degree: this.degree,
           des: this.desc
         })
+        Object.assign(this.$data, this.$options.data())
         alert('修改成功')
       } catch (err) {
         console.log(err)
@@ -93,6 +94,9 @@ export default {
         role: ''
       })
       this.$router.push('/')
+    },
+    onCancel() {
+      Object.assign(this.$data, this.$options.data())
     }
   },
   async created() {

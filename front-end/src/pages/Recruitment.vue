@@ -34,7 +34,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">发布</el-button>
-          <el-button>取消</el-button>
+          <el-button @click="onCancel">取消</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -54,6 +54,7 @@ export default {
     return {
       name: '',
       cities: [],
+      city: '',
       minWage: '',
       maxWage: '',
       minYear: '',
@@ -71,8 +72,26 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
-      alert('ok')
+    async onSubmit() {
+      try {
+        await request.post('/recruitment', {
+          "name": this.name,
+          "city": this.city,
+          "minWage": this.minWage,
+          "maxWage": this.maxWage,
+          "minYear": this.minYear,
+          "maxYear": this.maxYear,
+          "degree": this.degree,
+          "desc": this.degree
+        })
+        Object.assign(this.$data, this.$options.data())
+        alert('发布成功')
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    onCancel() {
+      Object.assign(this.$data, this.$options.data())
     }
   }
 }
