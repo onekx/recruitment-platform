@@ -1,8 +1,8 @@
 <template>
   <div class="main">
-    <Header @update-city="updateCities" />
-    <SearchJob />
-    <JobListItem v-for="(city,index) in cities" :key="index" :content="city" />
+    <Header @update-city="updateRecruitments" />
+    <SearchJob @search-result="searchResult" />
+    <JobListItem v-for="(recruitment,index) in recruitments" :key="index" :content="recruitment" />
   </div>
 </template>
 
@@ -21,21 +21,24 @@ export default {
   },
   data() {
     return {
-      cities: []
+      recruitments: []
     }
   },
   created() {
-    this.updateCities()
+    this.updateRecruitments()
   },
   methods: {
-    async updateCities() {
+    async updateRecruitments() {
       try {
         const { city } = this.$store.state
         const { data } = await request.get(`/recruitment/${city}`)
-        this.cities = data.cities
+        this.recruitments = data.recruitments
       } catch (err) {
         console.log(err)
       }
+    },
+    searchResult(value) {
+      this.recruitments = value
     }
   }
 }

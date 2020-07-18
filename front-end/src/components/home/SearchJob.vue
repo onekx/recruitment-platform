@@ -2,17 +2,30 @@
   <div class="search-content">
     <div class="search-item">
       <input type="text" placeholder="搜索职位或公司" v-model="value" class="search-input" />
-      <input type="button" value="搜索" class="search-btn" />
+      <input type="button" value="搜索" class="search-btn" @click="search" />
     </div>
   </div>
 </template>
 
 <script>
+import request from '@/api'
+
 export default {
   name: 'SearchJob',
   data() {
     return {
       value: ''
+    }
+  },
+  methods: {
+    async search() {
+      try {
+        const { city } = this.$store.state
+        const { data } = await request.get(`/recruitment/${city}/${this.value}`)
+        this.$emit('search-result', data.recruitments)
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 }

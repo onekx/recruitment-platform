@@ -29,6 +29,7 @@ app.route('/api/recruitment')
         })
     })
 
+// 按照城市分类
 app.get('/api/recruitment/:city', (req, res) => {
     if (req.params.city == '全国站') {
         Recruitment.find((err, doc) => {
@@ -38,7 +39,7 @@ app.get('/api/recruitment/:city', (req, res) => {
             })
             else res.send({
                 ok: true,
-                cities: doc
+                recruitments: doc
             })
         })
     } else {
@@ -50,9 +51,45 @@ app.get('/api/recruitment/:city', (req, res) => {
             else res.send({
                 ok: true,
                 message: '获取成功',
-                cities: doc
+                recruitments: doc
             })
         })
+    }
+})
+
+
+// 按照搜索结果查询
+app.get('/api/recruitment/:city/:value', (req, res) => {
+    if (req.params.city == '全国站') {
+        Recruitment.find({ name: { $regex: '.*' + req.params.value + '.*' } }, (err, doc) => {
+            if (err) res.send({
+                ok: false,
+                message: '查询失败',
+                err
+            })
+            else res.send({
+                ok: true,
+                message: '查询成功',
+                recruitments: doc
+            })
+        })
+    } else {
+        Recruitment.find({
+            name: { $regex: '.*' + req.params.value + '.*' },
+            city: { $regex: '.*' + req.params.city + '.*' }
+        },
+            (err, doc) => {
+                if (err) res.send({
+                    ok: false,
+                    message: '查询失败',
+                    err
+                })
+                else res.send({
+                    ok: true,
+                    message: '查询成功',
+                    recruitments: doc
+                })
+            })
     }
 })
 
