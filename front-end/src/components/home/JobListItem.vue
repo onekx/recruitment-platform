@@ -3,15 +3,15 @@
     <div class="job-inner">
       <div class="job-info">
         <div class="job-title">
-          <span class="name">前端工程师</span>
-          <span class="job-city">成都</span>
-          <span class="job-post-time">发布于07月14号</span>
+          <span class="name">{{content.name}}</span>
+          <span class="job-city">{{content.city}}</span>
+          <span class="job-post-time">发布于{{content.time.month}}月{{content.time.date}}号</span>
         </div>
         <div class="job-limit">
-          <span class="pay">7-8K</span>
-          <span>1-3年</span>
+          <span class="pay">{{content.minWage}}-{{content.maxWage}}K</span>
+          <span>{{content.minYear}}-{{content.maxYear}}年</span>
           <em class="divide"></em>
-          <span>本科</span>
+          <span>{{content.degree}}</span>
         </div>
       </div>
       <div class="company-info">
@@ -31,7 +31,28 @@
 
 <script>
 export default {
-  name: 'JobListItem'
+  name: 'JobListItem',
+  props: ["content"],
+  created() {
+    this.translation()
+  },
+  methods: {
+    translation() {
+      switch (this.content.degree) {
+        case 'bachelor':
+          this.content.degree = '本科'
+          break
+        case 'master':
+          this.content.degree = '研究生'
+          break
+        case 'doctor':
+          this.content.degree = '博士生'
+          break
+        default:
+          this.content.degree = '专科'
+      }
+    }
+  }
 }
 </script>
 
@@ -45,7 +66,7 @@ export default {
   box-sizing: border-box;
   cursor: pointer;
   border-radius: 5px;
-  margin-bottom: 30px;
+  margin-top: 30px;
 }
 
 .job-inner {

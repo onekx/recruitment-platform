@@ -9,7 +9,8 @@ const RecruitmentSchema = new Schema({
     minYear: { type: Number },
     maxYear: { type: Number },
     degree: { type: String },
-    desc: { type: String }
+    desc: { type: String },
+    time: { type: Object }
 })
 
 module.exports = mongoose.model('Recruitment', RecruitmentSchema, 'recruitment')

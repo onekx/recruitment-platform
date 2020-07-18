@@ -15,6 +15,7 @@ app.route('/api/recruitment')
         recruitment.maxYear = req.body.maxYear
         recruitment.degree = req.body.degree
         recruitment.desc = req.body.desc
+        recruitment.time = req.body.time
         recruitment.save(err => {
             if (err) res.send({
                 ok: false,
@@ -27,5 +28,32 @@ app.route('/api/recruitment')
             })
         })
     })
+
+app.get('/api/recruitment/:city', (req, res) => {
+    if (req.params.city == '全国站') {
+        Recruitment.find((err, doc) => {
+            if (err) res.send({
+                ok: false,
+                message: '获取失败'
+            })
+            else res.send({
+                ok: true,
+                cities: doc
+            })
+        })
+    } else {
+        Recruitment.find({ "city": req.params.city }, (err, doc) => {
+            if (err) res.send({
+                ok: false,
+                message: '获取失败'
+            })
+            else res.send({
+                ok: true,
+                message: '获取成功',
+                cities: doc
+            })
+        })
+    }
+})
 
 module.exports = app

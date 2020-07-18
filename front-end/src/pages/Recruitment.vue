@@ -63,17 +63,14 @@ export default {
       desc: ''
     }
   },
-  async created() {
-    try {
-      const { data } = await request.get('/city')
-      this.cities = data.cities
-    } catch (err) {
-      console.log(err)
-    }
+  created() {
+    this.getCity()
+    this.getTime()
   },
   methods: {
     async onSubmit() {
       try {
+        const time = this.getTime()
         await request.post('/recruitment', {
           "name": this.name,
           "city": this.city,
@@ -82,7 +79,8 @@ export default {
           "minYear": this.minYear,
           "maxYear": this.maxYear,
           "degree": this.degree,
-          "desc": this.degree
+          "desc": this.degree,
+          time
         })
         Object.assign(this.$data, this.$options.data())
         alert('发布成功')
@@ -92,6 +90,20 @@ export default {
     },
     onCancel() {
       Object.assign(this.$data, this.$options.data())
+    },
+    async getCity() {
+      try {
+        const { data } = await request.get('/city')
+        this.cities = data.cities
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    getTime() {
+      const nowDate = new Date()
+      const month = nowDate.getMonth() + 1
+      const date = nowDate.getDate()
+      return { month, date }
     }
   }
 }

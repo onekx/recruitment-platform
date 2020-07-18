@@ -32,7 +32,7 @@
     <el-dialog title="切换城市" :visible.sync="dialogVisible" width="400px" center>
       <p>切换城市，获取更准确的职位信息。</p>
       <el-divider></el-divider>
-      <el-button v-for="city in cities" :key="city" v-text="city"></el-button>
+      <el-button v-for="city in cities" :key="city" v-text="city" @click="changeCity(city)"></el-button>
     </el-dialog>
     <Login v-if="loginDialog" @login-click="setData" />
   </header>
@@ -49,7 +49,7 @@ export default {
   },
   data() {
     return {
-      city: '全国',
+      city: '全国站',
       dialogVisible: false,
       cities: [],
       login: false,
@@ -64,6 +64,15 @@ export default {
     setData(value) {
       this.login = value.login
       this.role = value.role
+    },
+    changeCity(city) {
+      this.city = city
+      this.$store.commit({
+        type: 'setCity',
+        city
+      })
+      this.dialogVisible = false
+      this.$emit('update-city')
     }
   },
   async created() {
