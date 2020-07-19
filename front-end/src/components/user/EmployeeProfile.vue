@@ -26,7 +26,7 @@
         <el-option label="博士生" value="doctor"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="个人简介">
+    <el-form-item label="个人优势">
       <el-input
         type="textarea"
         v-model="desc"

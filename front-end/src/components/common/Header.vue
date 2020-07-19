@@ -13,11 +13,11 @@
       <router-link to="/" class="home-btn">职位</router-link>
       <div class="user-nav">
         <ul>
-          <li>
+          <li v-if="login">
             <router-link to="/message">消息</router-link>
           </li>
           <li v-if="role == 'employee'">
-            <router-link to="/resume">上传简历</router-link>
+            <router-link to="/resume">在线简历</router-link>
           </li>
           <li v-if="role == 'employer'">
             <router-link to="/recruitment">发布职位</router-link>
