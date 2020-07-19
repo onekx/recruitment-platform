@@ -11,7 +11,8 @@ const UserSchema = new Schema({
     university: { type: String },
     subject: { type: String },
     degree: { type: String },
-    des: { type: String }
+    des: { type: String },
+    job: { type: String }
 })
 
 module.exports = mongoose.model('User', UserSchema, 'user')

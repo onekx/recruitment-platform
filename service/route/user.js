@@ -78,7 +78,8 @@ app.route('/api/user/:id')
                 university: req.body.university,
                 subject: req.body.subject,
                 degree: req.body.degree,
-                des: req.body.des
+                des: req.body.des,
+                job: req.body.job
             }
         }, err => {
             if (err) res.send({
