@@ -29,14 +29,14 @@ const routes = [
         component: () => import('../pages/Recruitment')
     },
     {
-        path: '/user',
-        name: 'User',
-        component: () => import('../pages/User/PersonalCenter')
+        path: '/employee',
+        name: 'Employee',
+        component: () => import('../pages/Employee')
     },
     {
-        path: '/setting',
-        name: 'Setting',
-        component: () => import('../pages/User/Setting')
+        path: '/employer',
+        name: 'Employer',
+        component: () => import('../pages/Employer')
     }
 ]
 
