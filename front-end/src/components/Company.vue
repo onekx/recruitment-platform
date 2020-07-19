@@ -26,13 +26,15 @@
       <el-input v-model="logo" placeholder="请输入公司图标的链接" style="width:400px" clearable></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary">确认修改</el-button>
+      <el-button type="primary" @click="onSubmit">确认修改</el-button>
       <el-button @click="onCancel">取消</el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
+import request from '@/api'
+
 export default {
   name: 'Company',
   data() {
@@ -43,7 +45,36 @@ export default {
       logo: ''
     }
   },
+  async created() {
+    try {
+      const { userId } = this.$store.state
+      const { data } = request.get(`/company/${userId}`)
+      if (data.ok) {
+        this.name = data.company.name
+        this.type = data.company.type
+        this.scale = data.company.scale
+        this.logo = data.company.logo
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  },
   methods: {
+    async onSubmit() {
+      try {
+        const data = {
+          name: this.name,
+          type: this.type,
+          scale: this.scale,
+          logo: this.logo,
+          userId: this.$store.state.userId
+        }
+        await request.put('/company', data)
+        alert('修改成功')
+      } catch (err) {
+        console.log(err)
+      }
+    },
     onCancel() {
       Object.assign(this.$data, this.$options.data())
     }

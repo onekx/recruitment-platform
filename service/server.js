@@ -13,9 +13,11 @@ app.use(bodyParser.json())
 const user = require('./route/user')
 const city = require('./route/city')
 const recruitment = require('./route/recruitment')
+const company = require('./route/company')
 app.use(user)
 app.use(city)
 app.use(recruitment)
+app.use(company)
 
 const port = 5959
 
