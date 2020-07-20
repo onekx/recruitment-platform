@@ -76,13 +76,14 @@
           :autosize="{ minRows: 6, maxRows: 10 }"
         ></el-input>
       </div>
-      <el-button type="primary" @click="onSubmit" class="submit-btn">立即上传</el-button>
+      <el-button type="primary" @click="onSubmit" class="submit-btn">立即提交</el-button>
     </div>
   </div>
 </template>
 
 <script>
 import Header from '../components/common/Header'
+import request from '@/api'
 
 export default {
   name: 'Resume',
@@ -100,9 +101,43 @@ export default {
       certificate: ''
     }
   },
+  created() {
+    this.getData()
+  },
   methods: {
-    onSubmit() {
-      alert('ok')
+    async onSubmit() {
+      try {
+        const { userId } = this.$store.state
+        const data = {
+          "job": this.job,
+          "wage": this.wage,
+          "city": this.city,
+          "workExperience": this.workExperience,
+          "projectExperience": this.projectExperience,
+          "certificate": this.certificate,
+          "userId": userId
+        }
+        await request.post('/resume', data)
+        alert('提交成功')
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async getData() {
+      try {
+        const { userId } = this.$store.state
+        const { data } = await request.get(`/resume/${userId}`)
+        if (data.ok) {
+          this.job = data.resume.job
+          this.city = data.resume.city
+          this.certificate = data.resume.certificate
+          this.projectExperience = data.resume.projectExperience
+          this.workExperience = data.resume.workExperience
+          this.wage = data.resume.wage
+        }
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 }

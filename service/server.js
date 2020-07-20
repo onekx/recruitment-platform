@@ -14,10 +14,12 @@ const user = require('./route/user')
 const city = require('./route/city')
 const recruitment = require('./route/recruitment')
 const company = require('./route/company')
+const resume = require('./route/resume')
 app.use(user)
 app.use(city)
 app.use(recruitment)
 app.use(company)
+app.use(resume)
 
 const port = 5959
 
