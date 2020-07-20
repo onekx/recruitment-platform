@@ -25,6 +25,9 @@
     <el-form-item label="公司图标">
       <el-input v-model="logo" placeholder="请输入公司图标的链接" style="width:400px" clearable></el-input>
     </el-form-item>
+    <el-form-item label="公司图标">
+      <el-input v-model="desc" placeholder="请输入公司介绍" type="textarea" clearable></el-input>
+    </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="onSubmit">确认修改</el-button>
       <el-button @click="onCancel">取消</el-button>
@@ -42,7 +45,8 @@ export default {
       name: '',
       type: '',
       scale: '',
-      logo: ''
+      logo: '',
+      desc: ''
     }
   },
   async created() {
@@ -54,6 +58,7 @@ export default {
         this.type = data.company.type
         this.scale = data.company.scale
         this.logo = data.company.logo
+        this.desc = data.company.desc
       }
     } catch (err) {
       console.log(err)
@@ -67,7 +72,8 @@ export default {
           type: this.type,
           scale: this.scale,
           logo: this.logo,
-          userId: this.$store.state.userId
+          userId: this.$store.state.userId,
+          desc: this.desc
         }
         await request.put('/company', data)
         alert('修改成功')

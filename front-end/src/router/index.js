@@ -39,7 +39,7 @@ const routes = [
         component: () => import('../pages/Employer')
     },
     {
-        path: '/job_detail',
+        path: '/job_detail/:id',
         name: 'JobDetail',
         component: () => import('../pages/JobDetail')
     }

@@ -18,6 +18,7 @@ app.route('/api/company')
                     type: req.body.type,
                     scale: req.body.scale,
                     logo: req.body.logo,
+                    desc: req.body.desc
                 }
             }, err => {
                 if (err) res.send({
@@ -37,6 +38,7 @@ app.route('/api/company')
             company.userId = req.body.userId
             company.scale = req.body.scale
             company.logo = req.body.logo
+            company.desc = req.body.desc
             company.save(err => {
                 err ? res.send({ ok: false, message: '创建失败' })
                     : res.send({ ok: true, message: '创建成功', company })
@@ -45,7 +47,7 @@ app.route('/api/company')
     })
 
 app.route('/api/company/:userId')
-    // 获取公司信息
+    // 通过所有者 id 获取公司信息
     .get(async (req, res) => {
         const company = await Company.findOne({
             userId: req.params.userId
@@ -54,6 +56,7 @@ app.route('/api/company/:userId')
             : res.send({ ok: false, message: '获取失败' })
     })
 
+// 通过招聘信息id获取公司信息
 app.get('/api/company/recruitment/:id', (req, res) => {
     Recruitment.findOne({ _id: req.params.id }, (err, doc) => {
         if (err) res.send({

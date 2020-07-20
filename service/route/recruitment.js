@@ -94,4 +94,19 @@ app.get('/api/recruitment/:city/:value', (req, res) => {
     }
 })
 
+// 通过 id 获取招聘信息
+app.get('/api/recruitmentid/:id', (req, res) => {
+    Recruitment.findById(req.params.id, (err, doc) => {
+        if (err) res.send({
+            ok: false,
+            message: '获取失败'
+        })
+        else res.send({
+            ok: true,
+            message: '获取成功',
+            content: doc
+        })
+    })
+})
+
 module.exports = app

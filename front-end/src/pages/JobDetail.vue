@@ -4,14 +4,14 @@
     <div class="job-banner">
       <div class="job-inner">
         <div class="job-info">
-          <h1>前端开发</h1>
-          <span class="wage-color">2K-3K</span>
+          <h1>{{this.name}}</h1>
+          <span class="wage-color">{{this.minWage}}K-{{this.maxWage}}K</span>
           <span class="divide">|</span>
-          <span>成都</span>
+          <span>{{this.city}}</span>
           <span class="divide">|</span>
-          <span>1-3年</span>
+          <span>{{this.minYear}}-{{this.maxYear}}年</span>
           <span class="divide">|</span>
-          <span>本科</span>
+          <span>{{this.degree}}</span>
         </div>
         <div class="btn-cllection">
           <div class="btn">立即沟通</div>
@@ -21,20 +21,81 @@
     </div>
     <div class="job-detail">
       <h3>职位描述：</h3>
-      <p>这里填写职位描述</p>
+      <p>{{this.jobDesc}}</p>
       <h3 class="company-intro">公司介绍：</h3>
-      <p>这里是公司介绍</p>
+      <p>{{this.companyDesc}}</p>
     </div>
   </div>
 </template>
 
 <script>
 import Header from '../components/common/Header'
+import reqeust from '@/api'
 
 export default {
   name: 'JobDetail',
   components: {
     Header
+  },
+  data() {
+    return {
+      name: '',
+      minWage: '',
+      maxWage: '',
+      minYear: '',
+      maxYear: '',
+      degree: '',
+      city: '',
+      jobDesc: '',
+      companyDesc: ''
+    }
+  },
+  created() {
+    this.getJobInfo()
+    this.getCompanyInfo()
+  },
+  methods: {
+    async getJobInfo() {
+      try {
+        const { id } = this.$route.params
+        const { data } = await reqeust.get(`/recruitmentid/${id}`)
+        this.name = data.content.name
+        this.minWage = data.content.minWage
+        this.maxWage = data.content.maxWage
+        this.maxYear = data.content.maxYear
+        this.minYear = data.content.minYear
+        this.degree = data.content.degree
+        this.jobDesc = data.content.desc
+        this.city = data.content.city
+        this.translation()
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async getCompanyInfo() {
+      try {
+        const { id } = this.$route.params
+        const { data } = await reqeust.get(`/company/recruitment/${id}`)
+        this.companyDesc = data.company.desc
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    translation() {
+      switch (this.degree) {
+        case 'bachelor':
+          this.degree = '本科'
+          break
+        case 'master':
+          this.degree = '研究生'
+          break
+        case 'doctor':
+          this.degree = '博士生'
+          break
+        default:
+          this.degree = '专科'
+      }
+    }
   }
 }
 </script>
@@ -55,7 +116,7 @@ export default {
 
 h1 {
   font-weight: 500;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 h3 {

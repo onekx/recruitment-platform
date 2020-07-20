@@ -77,7 +77,7 @@ export default {
       }
     },
     toDetail() {
-      this.$router.push('/job_detail')
+      this.$router.push(`/job_detail/${this.content._id}`)
     }
   }
 }
