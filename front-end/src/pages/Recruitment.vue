@@ -70,6 +70,7 @@ export default {
   methods: {
     async onSubmit() {
       try {
+        const { userId } = this.$store.state
         const time = this.getTime()
         await request.post('/recruitment', {
           "name": this.name,
@@ -80,7 +81,8 @@ export default {
           "maxYear": this.maxYear,
           "degree": this.degree,
           "desc": this.degree,
-          time
+          time,
+          userId
         })
         Object.assign(this.$data, this.$options.data())
         alert('发布成功')

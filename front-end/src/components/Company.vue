@@ -48,7 +48,7 @@ export default {
   async created() {
     try {
       const { userId } = this.$store.state
-      const { data } = request.get(`/company/${userId}`)
+      const { data } = await request.get(`/company/${userId}`)
       if (data.ok) {
         this.name = data.company.name
         this.type = data.company.type

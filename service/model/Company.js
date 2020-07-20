@@ -6,7 +6,7 @@ const CompanySchema = new Schema({
     type: { type: String },
     scale: { type: String },
     logo: { type: String },
-    userId: { type: String }
+    userId: { type: String, unique: true }
 })
 
 module.exports = mongoose.model('Company', CompanySchema, 'company')

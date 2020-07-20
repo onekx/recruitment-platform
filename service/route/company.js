@@ -2,22 +2,22 @@ const express = require('express')
 const app = express.Router()
 
 const Company = require('../model/Company')
+const Recruitment = require('../model/Recruitment')
 
 app.route('/api/company')
 
     // 修改公司信息，没有则创建
     .put(async (req, res) => {
         const company = await Company.findOne({
-            name: req.body.name
+            userId: req.body.userId
         })
         if (company) {
-            Company.updateOne({ "name": req.body.name }, {
+            Company.updateOne({ userId: req.body.userId }, {
                 $set: {
                     name: req.body.name,
                     type: req.body.type,
                     scale: req.body.scale,
                     logo: req.body.logo,
-                    userId: req.body.uerId
                 }
             }, err => {
                 if (err) res.send({
@@ -26,7 +26,7 @@ app.route('/api/company')
                 })
                 else res.send({
                     ok: true,
-                    message: '修改成功',
+                    message: '修改成功'
                 })
             })
         }
@@ -53,5 +53,27 @@ app.route('/api/company/:userId')
         company ? res.send({ ok: true, message: '获取成功', company })
             : res.send({ ok: false, message: '获取失败' })
     })
+
+app.get('/api/company/recruitment/:id', (req, res) => {
+    Recruitment.findOne({ _id: req.params.id }, (err, doc) => {
+        if (err) res.send({
+            ok: false,
+            message: '未找到该信息'
+        })
+        else {
+            Company.findOne({ userId: doc.userId }, (err, company) => {
+                if (err) res.send({
+                    ok: false,
+                    message: '未找到该信息'
+                })
+                else res.send({
+                    ok: true,
+                    message: '查找成功',
+                    company
+                })
+            })
+        }
+    })
+})
 
 module.exports = app

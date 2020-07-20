@@ -16,6 +16,7 @@ app.route('/api/recruitment')
         recruitment.degree = req.body.degree
         recruitment.desc = req.body.desc
         recruitment.time = req.body.time
+        recruitment.userId = req.body.userId
         recruitment.save(err => {
             if (err) res.send({
                 ok: false,

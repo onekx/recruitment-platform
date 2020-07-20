@@ -16,25 +16,38 @@
       </div>
       <div class="company-info">
         <div class="company-text">
-          <span class="name">成都东软学院</span>
+          <span class="name">{{this.company.name}}</span>
           <div class="company-intro">
-            <span>互联网企业</span>
+            <span>{{this.company.type}}</span>
             <em class="divide"></em>
-            <span>20-99人</span>
+            <span>{{this.company.scale}}人</span>
           </div>
         </div>
-        <img src="https://cn.vuejs.org/images/logo.png" alt="logo" />
+        <img :src="company.logo" alt="logo" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import request from '@/api'
+
 export default {
   name: 'JobListItem',
   props: ["content"],
   created() {
     this.translation()
+    this.getCompanyInfo()
+  },
+  data() {
+    return {
+      company: {
+        name: '',
+        type: '',
+        scale: '',
+        logo: ''
+      }
+    }
   },
   methods: {
     translation() {
@@ -50,6 +63,17 @@ export default {
           break
         default:
           this.content.degree = '专科'
+      }
+    },
+    async getCompanyInfo() {
+      try {
+        const { data } = await request.get(`/company/recruitment/${this.content._id}`)
+        this.company.name = data.company.name
+        this.company.type = data.company.type
+        this.company.logo = data.company.logo
+        this.company.scale = data.company.scale
+      } catch (err) {
+        console.log(err)
       }
     }
   }
