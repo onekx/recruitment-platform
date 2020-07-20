@@ -1,5 +1,5 @@
 <template>
-  <div class="job-card">
+  <div class="job-card" @click="toDetail">
     <div class="job-inner">
       <div class="job-info">
         <div class="job-title">
@@ -75,6 +75,9 @@ export default {
       } catch (err) {
         console.log(err)
       }
+    },
+    toDetail() {
+      this.$router.push('/job_detail')
     }
   }
 }
