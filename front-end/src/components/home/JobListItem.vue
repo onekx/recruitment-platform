@@ -5,13 +5,14 @@
         <div class="job-title">
           <span class="name">{{content.name}}</span>
           <span class="job-city">{{content.city}}</span>
-          <span class="job-post-time">发布于{{content.time.month}}月{{content.time.date}}号</span>
+          <span class="job-post-time">{{postDate}}</span>
         </div>
         <div class="job-limit">
-          <span class="pay">{{content.minWage}}-{{content.maxWage}}K</span>
-          <span>{{content.minYear}}-{{content.maxYear}}年</span>
+          <span class="pay">{{wageRange}}</span>
           <em class="divide"></em>
-          <span>{{content.degree}}</span>
+          <span>{{yearRange}}</span>
+          <em class="divide"></em>
+          <span>{{degreeCn}}</span>
         </div>
       </div>
       <div class="company-info">
@@ -36,7 +37,6 @@ export default {
   name: 'JobListItem',
   props: ["content"],
   created() {
-    this.translation()
     this.getCompanyInfo()
   },
   data() {
@@ -50,21 +50,6 @@ export default {
     }
   },
   methods: {
-    translation() {
-      switch (this.content.degree) {
-        case 'bachelor':
-          this.content.degree = '本科'
-          break
-        case 'master':
-          this.content.degree = '研究生'
-          break
-        case 'doctor':
-          this.content.degree = '博士生'
-          break
-        default:
-          this.content.degree = '专科'
-      }
-    },
     async getCompanyInfo() {
       try {
         const { data } = await request.get(`/company/recruitment/${this.content._id}`)
@@ -78,6 +63,30 @@ export default {
     },
     toDetail() {
       this.$router.push(`/job_detail/${this.content._id}`)
+    }
+  },
+  computed: {
+    degreeCn() {
+      switch (this.content.degree) {
+        case 'bachelor':
+          return '本科'
+        case 'master':
+          return '研究生'
+        case 'doctor':
+          return '博士生'
+        default:
+          return '专科'
+      }
+    },
+    postDate() {
+      const { time } = this.content
+      return `发布于${time.month}月${time.date}号`
+    },
+    wageRange() {
+      return `${this.content.minWage}-${this.content.maxWage}K`
+    },
+    yearRange() {
+      return `${this.content.minYear}-${this.content.maxYear}年`
     }
   }
 }

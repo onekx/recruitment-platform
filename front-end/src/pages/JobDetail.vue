@@ -5,16 +5,15 @@
       <div class="job-inner">
         <div class="job-info">
           <h1>{{this.name}}</h1>
-          <span class="wage-color">{{this.minWage}}K-{{this.maxWage}}K</span>
+          <span class="wage-color">{{wageRange}}</span>
           <span class="divide">|</span>
           <span>{{this.city}}</span>
           <span class="divide">|</span>
-          <span>{{this.minYear}}-{{this.maxYear}}年</span>
+          <span>{{yearRange}}</span>
           <span class="divide">|</span>
-          <span>{{this.degree}}</span>
+          <span>{{degreeCn}}</span>
         </div>
         <div class="btn-cllection">
-          <div class="btn">立即沟通</div>
           <div class="btn">投递简历</div>
         </div>
       </div>
@@ -67,7 +66,6 @@ export default {
         this.degree = data.content.degree
         this.jobDesc = data.content.desc
         this.city = data.content.city
-        this.translation()
       } catch (err) {
         console.log(err)
       }
@@ -81,19 +79,24 @@ export default {
         console.log(err)
       }
     },
-    translation() {
+  },
+  computed: {
+    wageRange() {
+      return `${this.minWage}K-${this.maxWage}K`
+    },
+    yearRange() {
+      return `${this.minYear}-${this.maxYear}年`
+    },
+    degreeCn() {
       switch (this.degree) {
         case 'bachelor':
-          this.degree = '本科'
-          break
+          return '本科'
         case 'master':
-          this.degree = '研究生'
-          break
+          return '研究生'
         case 'doctor':
-          this.degree = '博士生'
-          break
+          return '博士生'
         default:
-          this.degree = '专科'
+          return '专科'
       }
     }
   }

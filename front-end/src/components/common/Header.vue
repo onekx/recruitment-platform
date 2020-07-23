@@ -13,9 +13,6 @@
       <router-link to="/" class="home-btn">职位</router-link>
       <div class="user-nav">
         <ul>
-          <li v-if="login">
-            <router-link to="/message">消息</router-link>
-          </li>
           <li v-if="role == 'employee'">
             <router-link to="/resume">在线简历</router-link>
           </li>
@@ -23,7 +20,7 @@
             <router-link to="/recruitment">发布职位</router-link>
           </li>
           <li>
-            <router-link :to="route" v-if="login">个人中心</router-link>
+            <router-link :to="modifyRoute" v-if="login">个人中心</router-link>
             <span class="name" v-else @click="showLoginDialog">登录</span>
           </li>
         </ul>
@@ -54,8 +51,7 @@ export default {
       cities: [],
       login: false,
       loginDialog: false,
-      role: '',
-      route: ''
+      role: ''
     }
   },
   methods: {
@@ -74,18 +70,17 @@ export default {
       })
       this.dialogVisible = false
       this.$emit('update-city')
-    },
-    getRole() {
-      if (this.role == 'employee') return '/employee'
-      else return '/employer'
+    }
+  },
+  computed: {
+    modifyRoute() {
+      return this.role === 'employee' ? '/employee' : '/employer'
     }
   },
   async created() {
     this.role = this.$store.state.role
-    this.route = `/${this.role}`
     const token = window.localStorage.getItem('token')
-    if (token) this.login = true
-    else this.login = false
+    token ? this.login = true : this.login = false
     try {
       const { data } = await request.get('/city')
       this.cities = data.cities
