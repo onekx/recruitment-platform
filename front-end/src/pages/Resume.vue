@@ -101,7 +101,7 @@ export default {
       certificate: ''
     }
   },
-  created() {
+  mounted() {
     this.getData()
   },
   methods: {

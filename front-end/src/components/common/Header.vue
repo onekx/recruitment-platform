@@ -70,6 +70,14 @@ export default {
       })
       this.dialogVisible = false
       this.$emit('update-city')
+    },
+    async getCityList() {
+      try {
+        const { data } = await request.get('/city')
+        this.cities = data.cities
+      } catch (err) {
+        console.log(err)
+      }
     }
   },
   computed: {
@@ -77,16 +85,13 @@ export default {
       return this.role === 'employee' ? '/employee' : '/employer'
     }
   },
-  async created() {
+  created() {
     this.role = this.$store.state.role
     const token = window.localStorage.getItem('token')
     token ? this.login = true : this.login = false
-    try {
-      const { data } = await request.get('/city')
-      this.cities = data.cities
-    } catch (err) {
-      console.log(err)
-    }
+  },
+  mounted() {
+    this.getCityList()
   }
 }
 </script>

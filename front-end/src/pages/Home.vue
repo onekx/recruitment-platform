@@ -24,7 +24,7 @@ export default {
       recruitments: []
     }
   },
-  created() {
+  mounted() {
     this.updateRecruitments()
   },
   methods: {

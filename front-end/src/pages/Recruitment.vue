@@ -63,7 +63,7 @@ export default {
       desc: ''
     }
   },
-  created() {
+  mounted() {
     this.getCity()
     this.getTime()
   },

@@ -49,20 +49,8 @@ export default {
       desc: ''
     }
   },
-  async created() {
-    try {
-      const { userId } = this.$store.state
-      const { data } = await request.get(`/company/${userId}`)
-      if (data.ok) {
-        this.name = data.company.name
-        this.type = data.company.type
-        this.scale = data.company.scale
-        this.logo = data.company.logo
-        this.desc = data.company.desc
-      }
-    } catch (err) {
-      console.log(err)
-    }
+  mounted() {
+    this.getCompanyInfo()
   },
   methods: {
     async onSubmit() {
@@ -83,6 +71,21 @@ export default {
     },
     onCancel() {
       Object.assign(this.$data, this.$options.data())
+    },
+    async getCompanyInfo() {
+      try {
+        const { userId } = this.$store.state
+        const { data } = await request.get(`/company/${userId}`)
+        if (data.ok) {
+          this.name = data.company.name
+          this.type = data.company.type
+          this.scale = data.company.scale
+          this.logo = data.company.logo
+          this.desc = data.company.desc
+        }
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 }

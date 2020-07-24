@@ -61,7 +61,7 @@ export default {
   methods: {
     async onSubmit() {
       try {
-        await request.put('/user/5f0ea7f95317cc126023a819', {
+        await request.put(`/user/${this.$store.state.userId}`, {
           name: this.name,
           gender: this.gender,
           age: this.age,
@@ -70,7 +70,6 @@ export default {
           degree: this.degree,
           des: this.desc
         })
-        Object.assign(this.$data, this.$options.data())
         alert('修改成功')
       } catch (err) {
         console.log(err)
@@ -78,22 +77,25 @@ export default {
     },
     onCancel() {
       Object.assign(this.$data, this.$options.data())
+    },
+    async getProfile() {
+      try {
+        const { userId } = this.$store.state
+        const { data } = await request.get(`/user/${userId}`)
+        this.name = data.user.name
+        this.age = data.user.age
+        this.gender = data.user.gender
+        this.desc = data.user.des
+        this.subject = data.user.subject
+        this.university = data.user.university
+        this.degree = data.user.degree
+      } catch (err) {
+        console.log(err)
+      }
     }
   },
-  async created() {
-    try {
-      const { userId } = this.$store.state
-      const { data } = await request.get(`/user/${userId}`)
-      this.name = data.user.name
-      this.age = data.user.age
-      this.gender = data.user.gender
-      this.desc = data.user.des
-      this.subject = data.user.subject
-      this.university = data.user.university
-      this.degree = data.user.degree
-    } catch (err) {
-      console.log(err)
-    }
+  mounted() {
+    this.getProfile()
   }
 }
 </script>
