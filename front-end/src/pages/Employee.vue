@@ -23,6 +23,7 @@
 <script>
 import EmployeeProfile from '../components/user/EmployeeProfile'
 import Header from '../components/common/Header'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'Employee',
@@ -37,14 +38,11 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['initialState']),
     logout() {
       this.$router.push('/')
       window.localStorage.removeItem('token')
-      this.$store.commit({
-        type: 'initialState',
-        id: '',
-        role: ''
-      })
+      this.initialState({ id: '', role: '' })
     }
   }
 }

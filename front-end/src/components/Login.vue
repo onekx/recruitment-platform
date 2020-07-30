@@ -38,6 +38,7 @@
 
 <script>
 import request from '../api'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'Login',
@@ -54,6 +55,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['initialState']),
     async login() {
       try {
         const { data } = await request.post('/login', {
@@ -67,8 +69,7 @@ export default {
             login: true,
             role: data.user.role
           })
-          this.$store.commit({
-            type: 'initialState',
+          this.initialState({
             id: data.user._id,
             role: data.user.role
           })

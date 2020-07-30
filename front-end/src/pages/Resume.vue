@@ -57,6 +57,7 @@
 import Header from '../components/common/Header'
 import UserInfo from '../components/UserInfo'
 import request from '@/api'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Resume',
@@ -77,10 +78,12 @@ export default {
   mounted() {
     this.getData()
   },
+  computed: {
+    ...mapState(['userId'])
+  },
   methods: {
     async onSubmit() {
       try {
-        const { userId } = this.$store.state
         const data = {
           "job": this.job,
           "wage": this.wage,
@@ -88,7 +91,7 @@ export default {
           "workExperience": this.workExperience,
           "projectExperience": this.projectExperience,
           "certificate": this.certificate,
-          "userId": userId
+          "userId": this.userId
         }
         await request.post('/resume', data)
         alert('提交成功')
@@ -98,8 +101,7 @@ export default {
     },
     async getData() {
       try {
-        const { userId } = this.$store.state
-        const { data } = await request.get(`/resume/${userId}`)
+        const { data } = await request.get(`/resume/${this.userId}`)
         if (data.ok) {
           this.job = data.resume.job
           this.city = data.resume.city

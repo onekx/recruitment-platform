@@ -27,6 +27,7 @@
 import Header from '../components/common/Header'
 import EmployerProfile from '../components/user/EmployerProfile'
 import Company from '../components/Company'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'Employer',
@@ -42,14 +43,11 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['initialState']),
     logout() {
       this.$router.push('/')
       window.localStorage.removeItem('token')
-      this.$store.commit({
-        type: 'initialState',
-        id: '',
-        role: ''
-      })
+      this.initialState({ id: '', role: '' })
     }
   }
 }
