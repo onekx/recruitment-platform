@@ -63,7 +63,7 @@ export default {
           password: this.password
         })
         if (data.ok) {
-          window.localStorage.setItem('token', data.token)
+          window.sessionStorage.setItem('token', data.token)
           this.dialogVisible = false
           this.$emit('login-click', {
             login: true,

@@ -46,7 +46,7 @@ export default {
     ...mapMutations(['initialState']),
     logout() {
       this.$router.push('/')
-      window.localStorage.removeItem('token')
+      window.sessionStorage.removeItem('token')
       this.initialState({ id: '', role: '' })
     }
   }

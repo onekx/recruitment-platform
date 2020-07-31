@@ -87,8 +87,14 @@ export default {
   },
   created() {
     this.role = this.$store.state.role
-    const token = window.localStorage.getItem('token')
+    const token = window.sessionStorage.getItem('token')
     token ? this.login = true : this.login = false
+    if (sessionStorage.getItem("store")) {
+      this.$store.replaceState(Object.assign({}, this.$store.state, JSON.parse(sessionStorage.getItem("store"))))
+    }
+    window.addEventListener("beforeunload", () => {
+      sessionStorage.setItem("store", JSON.stringify(this.$store.state))
+    })
   },
   mounted() {
     this.getCityList()
