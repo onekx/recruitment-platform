@@ -3,11 +3,12 @@ const app = express.Router()
 
 const Company = require('../model/Company')
 const Recruitment = require('../model/Recruitment')
+const auth = require('../middleware/auth')
 
 app.route('/api/company')
 
     // 修改公司信息，没有则创建
-    .put(async (req, res) => {
+    .put(auth, async (req, res) => {
         const company = await Company.findOne({
             userId: req.body.userId
         })

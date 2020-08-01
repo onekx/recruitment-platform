@@ -3,6 +3,7 @@ const app = express.Router()
 const jwt = require('jsonwebtoken')
 
 const User = require('../model/User')
+const auth = require('../middleware/auth')
 
 // 注册
 app.post('/api/register', (req, res) => {
@@ -56,7 +57,7 @@ app.post('/api/login', async (req, res) => {
 app.route('/api/user/:id')
 
     // 获取用户信息
-    .get(async (req, res) => {
+    .get(auth, async (req, res) => {
         const user = await User.findById(req.params.id)
         if (!user) res.send({
             ok: false,
@@ -69,7 +70,7 @@ app.route('/api/user/:id')
     })
 
     // 修改用户信息
-    .put((req, res) => {
+    .put(auth, (req, res) => {
         User.updateOne({ "_id": req.params.id }, {
             $set: {
                 name: req.body.name,

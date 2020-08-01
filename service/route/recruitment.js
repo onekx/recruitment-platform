@@ -2,10 +2,11 @@ const express = require('express')
 const app = express.Router()
 
 const Recruitment = require('../model/Recruitment')
+const auth = require('../middleware/auth')
 
 app.route('/api/recruitment')
     // 上传招聘信息
-    .post((req, res) => {
+    .post(auth, (req, res) => {
         const recruitment = new Recruitment()
         recruitment.name = req.body.name
         recruitment.city = req.body.city

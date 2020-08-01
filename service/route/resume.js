@@ -2,8 +2,9 @@ const express = require('express')
 const app = express.Router()
 
 const Resume = require('../model/Resume')
+const auth = require('../middleware/auth')
 
-app.post('/api/resume', async (req, res) => {
+app.post('/api/resume', auth, async (req, res) => {
     const exist = await Resume.findOne({
         userId: req.body.userId
     })
@@ -51,7 +52,7 @@ app.post('/api/resume', async (req, res) => {
     }
 })
 
-app.get('/api/resume/:userId', async (req, res) => {
+app.get('/api/resume/:userId', auth, async (req, res) => {
     Resume.findOne({ userId: req.params.userId }, (err, doc) => {
         if (err) res.send({
             ok: false,
