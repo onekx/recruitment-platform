@@ -110,4 +110,21 @@ app.get('/api/recruitmentid/:id', (req, res) => {
     })
 })
 
+// 投递简历
+app.post('/api/recruitments/:id/resume', (req, res) => {
+    Recruitment.findById(req.params.id, (err, doc) => {
+        if (err) res.send({
+            ok: false,
+            message: '查询失败'
+        })
+        else {
+            doc.resumes.push(req.body.userId)
+            res.send({
+                ok: true,
+                result: doc
+            })
+        }
+    })
+})
+
 module.exports = app

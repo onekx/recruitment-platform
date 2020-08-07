@@ -11,7 +11,8 @@ const RecruitmentSchema = new Schema({
     degree: { type: String },
     desc: { type: String },
     time: { type: Object },
-    userId: { type: String }
+    userId: { type: String },
+    resumes: []
 })
 
 module.exports = mongoose.model('Recruitment', RecruitmentSchema, 'recruitment')

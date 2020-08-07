@@ -14,7 +14,7 @@
           <span>{{degreeCn}}</span>
         </div>
         <div class="btn-cllection">
-          <div class="btn">投递简历</div>
+          <div class="btn" @click="submitResume">投递简历</div>
         </div>
       </div>
     </div>
@@ -30,6 +30,7 @@
 <script>
 import Header from '../components/common/Header'
 import reqeust from '@/api'
+import { mapState } from 'vuex'
 
 export default {
   name: 'JobDetail',
@@ -52,6 +53,27 @@ export default {
   created() {
     this.getJobInfo()
     this.getCompanyInfo()
+  },
+  computed: {
+    ...mapState(['userId']),
+    wageRange() {
+      return `${this.minWage}K-${this.maxWage}K`
+    },
+    yearRange() {
+      return `${this.minYear}-${this.maxYear}年`
+    },
+    degreeCn() {
+      switch (this.degree) {
+        case 'bachelor':
+          return '本科'
+        case 'master':
+          return '研究生'
+        case 'doctor':
+          return '博士生'
+        default:
+          return '专科'
+      }
+    }
   },
   methods: {
     async getJobInfo() {
@@ -79,24 +101,17 @@ export default {
         console.log(err)
       }
     },
-  },
-  computed: {
-    wageRange() {
-      return `${this.minWage}K-${this.maxWage}K`
-    },
-    yearRange() {
-      return `${this.minYear}-${this.maxYear}年`
-    },
-    degreeCn() {
-      switch (this.degree) {
-        case 'bachelor':
-          return '本科'
-        case 'master':
-          return '研究生'
-        case 'doctor':
-          return '博士生'
-        default:
-          return '专科'
+    async submitResume() {
+      try {
+        const { id } = this.$route.params
+        await reqeust.post(`/recruitments/${id}/resume`, { userId: this.userId })
+        this.$message({
+          showClose: true,
+          message: '投递成功',
+          type: 'success'
+        })
+      } catch (err) {
+        console.log(err)
       }
     }
   }
